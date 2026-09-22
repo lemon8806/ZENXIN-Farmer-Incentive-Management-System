@@ -346,9 +346,11 @@ function getDataOfCell(sheetName, headerName, targetRowIndex) {
     ) {
 
         /* 检查该 header 是否存在与指定 sheet 里 */
+        /* Check whether the header exists in the specified sheet */
         const targetColumnIndex = getIndexOfHeader(sheetName, headerName);
 
         /* targetColumnIndex = -1 代表 sheetName 或 headerName 不存在 */
+        /* targetColumnIndex = -1 means that sheetName or headerName does not exist */
         if (targetColumnIndex !== -1) {
             cellData = getCell(sheetName, targetRowIndex, targetColumnIndex)
                 .getValue();
@@ -357,3 +359,50 @@ function getDataOfCell(sheetName, headerName, targetRowIndex) {
 
     return cellData;
 }
+
+
+
+
+
+/*------------------------------------------------------------------*/
+
+
+
+
+
+/* 更新指定 sheet 的指定单元格的 data */
+/* Update the data in the specified cell of the specified sheet */
+function updateDataOfCell(sheetName, headerName, targetRowIndex, dataToUpdate) {
+    if (
+        sheetName && 
+        headerName && 
+        !isNaN(targetRowIndex) && 
+        targetRowIndex >= 0
+    ) {
+
+        /* 检查 header 是否存在于指定 sheet 里 */
+        /* Check whether the header exists in the specified sheet */
+        const targetColumnIndex = getIndexOfHeader(sheetName, headerName);
+
+        /* targetColumnIndex = -1 代表 sheetName 或 headerName 不存在 */
+        /* targetColumnIndex = -1 means that sheetName or headerName does not exist */
+        if (targetColumnIndex !== -1)  {
+
+            /* 更新指定单元格的 data */ 
+            /* Update the data in the specified cell */
+            getCell(sheetName, targetRowIndex, targetColumnIndex)
+                .setValue(dataToUpdate);
+        }
+    }
+}
+
+
+
+
+
+/*------------------------------------------------------------------*/
+
+
+
+
+
