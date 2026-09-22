@@ -406,3 +406,54 @@ function updateDataOfCell(sheetName, headerName, targetRowIndex, dataToUpdate) {
 
 
 
+/* 找到指定数据在指定 sheet 的指定 column 里的 row index */
+/* Find the row index of the specified data in the specified column of the specified sheet */
+function findRowIndexOfCertainData(sheetName, headerName, target) {
+
+    /* 
+        rowIndex = -1 代表: 
+        sheetName 不存在
+        headerName 不存在 或 不存在于指定 sheetName 里 
+        target 不存在 或 不存在于指定 column 里
+    */
+    /*
+        rowIndex = -1 means:
+        sheetName does not exist
+        headerName does not exist or is not in the specified sheetName
+        target does not exist or is not in the specified column
+    */
+    let rowIndex = -1;
+    
+    if (
+        sheetName && 
+        headerName && 
+        target
+    ) {
+
+        /* 检查该 header 是否存在于指定 sheet 里 */
+        /* Check whether the header exists in the specified sheet */
+        const columnIndex = getIndexOfHeader(sheetName, headerName);
+
+        /* columnIndex = -1 代表 sheetName 或 header 不存在 */
+        /* columnIndex = -1 means that sheetName or the header does not exist */
+        if (columnIndex !== -1) {
+
+            /* 拿到指定 column 的整个竖列的 data */
+            /* Get all data from the specified column */
+            const targetColumnData = getDataOfColumn(sheetName, headerName, false);
+
+            if (targetColumnData && targetColumnData.length > 0) {
+
+                /* 拿到指定数据 (target) 在 list 里的 index */
+                /* Get the index of the specified data (target) in the list */
+                rowIndex = targetColumnData.indexOf(target);
+            }
+        }
+    }
+
+    return rowIndex;
+}
+
+
+
+
