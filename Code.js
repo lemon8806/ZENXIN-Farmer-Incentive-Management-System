@@ -341,10 +341,18 @@ function getDataOfCell(sheetName, headerName, targetRowIndex) {
     if (
         sheetName && 
         headerName && 
-        isNaN(targetRowIndex) && 
+        !isNaN(targetRowIndex) && 
         targetRowIndex >= 0
     ) {
-        
+
+        /* 检查该 header 是否存在与指定 sheet 里 */
+        const targetColumnIndex = getIndexOfHeader(sheetName, headerName);
+
+        /* targetColumnIndex = -1 代表 sheetName 或 headerName 不存在 */
+        if (targetColumnIndex !== -1) {
+            cellData = getCell(sheetName, targetRowIndex, targetColumnIndex)
+                .getValue();
+        }
     }
 
     return cellData;
