@@ -4,22 +4,85 @@
         <base target="_top">
         <meta name="viewport"
               content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
         <?!= include("css"); ?>
     </head>
 
     <body>
 
         <!-- 登录页面 -->
-        <section id="loginScreen"
+        <section id="loginScreen" 
                  class="screen">
 
-                 <div id="loginForm" 
-                      style="
-                        width: 100px; 
-                        height: 50px; 
-                        background-color: blue;
-                        border-radius: 10px;
-                      "></div>
+            <!-- 登录表单容器 -->
+            <div id="loginContainer">
+
+                <!-- Header -->
+                <div id="loginHeader">
+                    <h2>ZENXIN</h2>
+                    <p>Farmer Incentive Management System</p>
+                </div>
+
+                <!-- 登录表单 -->
+                <form id="authenticationForm" 
+                      onsubmit="event.preventDefault(); 
+                                handleLogin();">
+                    
+                    <!-- 账号输入 -->
+                    <div class="inputGroup">
+                        <label for="username">
+                            Username
+                        </label>
+                        
+                        <div class="inputWrapper">
+                            <input id="loginUsername" 
+                                   type="text" 
+                                   placeholder="Enter username" 
+                                   required 
+                                   autocomplete="username">
+                        </div>
+                    </div>
+
+
+
+
+
+                    <!-- 密码输入 -->
+                    <div class="inputGroup">
+                        <label for="password">
+                            Password
+                        </label>
+                        
+                        <div class="inputWrapper">
+                            <input id="password" 
+                                   type="password"  
+                                   placeholder="Enter password" 
+                                   required 
+                                   autocomplete="current-password">
+                        </div>
+                    </div>
+
+
+
+
+
+                    <!-- 登录提交按钮 -->
+                    <button id="submitBtn"
+                            class="btnLogin"
+                            type="submit">
+                        LOG IN
+                    </button>
+
+                </form>
+
+
+
+
+                <!-- Footer -->
+                <div id="loginFooter">
+                    <p style="margin-top: 4px;">© 2026 ZENXIN. All Rights Reserved.</p>
+                </div>
+            </div>
         </section>
 
 
