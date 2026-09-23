@@ -82,12 +82,13 @@
     /*--------------------------------------------------------------- 
         表单输入 
     ---------------------------------------------------------------*/
+    /* 调整 login 表单里的元素 (label, input) */
     .inputGroup {
         margin-bottom: 24px;
         text-align: left;
     }
 
-    /* label 美化 */
+    /* Login 表单的 input 的 label 美化 */
     .inputGroup label {
         display: block;
         font-size: 12px;
@@ -98,12 +99,12 @@
         margin-bottom: 8px;
     }
 
-    /* Textbox */
+    /* 调整 login 表单的 input 的 position */
     .inputWrapper {
         position: relative;
     }
 
-    /* Textbox 美化 */
+    /* Login 表单的 input 美化 */
     .inputWrapper input {
         width: 100%;
         background: rgba(15, 23, 25, 0.6);
@@ -121,6 +122,26 @@
         border-color: #2ecc71;
         box-shadow: 0 0 12px rgba(46, 204, 113, 0.25);
         background: rgba(15, 23, 25, 0.8);
+    }
+
+    /* 
+        避免 login 表单的 input 
+        在用户选择自动填充的时候
+        被覆盖掉已设定好的背景颜色 
+    */
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover, 
+    input:-webkit-autofill:focus, 
+    input:-webkit-autofill:active {
+
+        /* 强制文字颜色为白色 */
+        -webkit-text-fill-color: #ffffff !important; 
+
+        /* 用一个深色的内阴影 "假装" 是背景颜色 */
+        -webkit-box-shadow: 0 0 0 30px #0f1719 inset !important; 
+
+        /* 一个经典技巧，延迟浏览器默认样式的生效 */
+        transition: background-color 5000s ease-in-out 0s; 
     }
 
     /* 表单提交按钮美化 */
