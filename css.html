@@ -2,41 +2,24 @@
 
     html,
     body {
-        margin: 0 !important;
-        padding: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
         overflow: hidden;
+        font-family: 'Inter', 'Segoe UI', sans-serif;
     }
 
     body {
-        /* background: linear-gradient(135deg, #1e272c 0%, #0f1418 100%); */
-        min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 20px;
-        color: #ffffff;
-        font-family: sans-serif;
 
-        /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
-            动态生态 RGB 极光背景核心算法
-        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-        /* 超宽广的多色生态渐变矩阵 */
-        background: linear-gradient(-45deg, #020418, #04221c, #0b3d2c, #275848);
+        /* 设置一个纯色深邃底色 */
+        background-color: #0f1418; 
 
-        /* 物理拉伸背景尺寸到 400%，以便让渐变有空间进行内部流动 */
-        background-size: 400% 400%;
-
-        /* 调用名为 fluidGlow 的动画，15秒一个循环，无限往复，平滑淡入淡出 */
-        animation: fluidGlow 15s ease infinite !important;
-    }
-
-    /* 动画帧（GPU加速位置平移）*/
-    @keyframes fluidGlow {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
+        /* 使用内联 SVG 作为鼠标指针，无需外部图片文件 */
+        cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 256 256'><path fill='%232ecc71' d='M208.49 199.51a12 12 0 0 1-17 17l-42.06-42.07a88.18 88.18 0 0 1-52.22 16.31a88 88 0 0 1-62.22-150.22a88.18 88.18 0 0 1 16.31-52.22L93.51 29.51a12 12 0 0 1 17-17L208.49 110.49ZM156 92a64 64 0 0 0-56.57 96.57L196 92Z'/></svg>") 16 16, auto;
     }
 
     section {
@@ -53,6 +36,25 @@
 
 
     /*================================================================
+        鼠标特效相关 
+    ================================================================*/
+
+    #trailCanvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        /* 放在最顶层作为背景 */
+        z-index: 1; 
+    }
+
+
+
+
+
+    /*================================================================
         登录界面相关 
     ================================================================*/
 
@@ -60,24 +62,26 @@
         表单容器 
     ---------------------------------------------------------------*/
     #loginContainer {
+        position: relative;
         width: 100%;
         max-width: 420px;
-        background: rgba(30, 41, 44, 0.45);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(18, 25, 28, 0.65); 
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 16px;
-        padding: 40px 30px;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        padding: 40px 35px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
         text-align: center;
+        transition: all 0.4s ease;
 
-        /* 让所有变化都在 0.5 秒内平滑过渡 */
-        transition: all 0.5s ease;
+        /* 确保它在画板的上面 */
+        z-index: 10; 
     }
 
     #loginContainer:hover {
-        border-color: rgba(46, 204, 113, 0.7);
-        box-shadow: 0 25px 60px rgba(46, 204, 113, 0.22);
+        border-color: rgba(46, 204, 113, 0.45);
+        box-shadow: 0 25px 60px rgba(46, 204, 113, 0.15);
     }
 
 

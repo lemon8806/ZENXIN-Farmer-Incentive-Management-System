@@ -1,0 +1,109 @@
+<script>
+
+    /*================================================================
+        网页加载完成后执行
+    ================================================================*/
+
+    window.addEventListener("DOMContentLoaded", function() {
+        
+        /* 启动背景颜色动态变化 与 鼠标特效 */
+        setupCanvas();
+        animate();
+
+        /* 当页面大小发生变化时重新调整 canvas 大小 */
+        window.addEventListener('resize', setupCanvas);
+
+        /* 让鼠标特效生成在鼠标位置 */
+        document.addEventListener('mousemove', handleMouseMove);
+    });
+
+
+
+
+
+    /*================================================================
+        背景颜色动态变化, 与鼠标特效相关 
+    ================================================================*/
+
+    /* 用于绘制动态变化的背景颜色 与 鼠标特效 */
+    const canvas = document.getElementById("trailCanvas");
+    const context = canvas.getContext("2d");
+
+    let trail = [];
+
+    /* 用于管理动画 */
+    let animationFrameId; 
+
+
+
+
+
+    /* 根据网页当前大小调整 canvas 的大小 */
+    function setupCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+
+
+
+
+
+    /* 
+        把鼠标特效要渲染的 位置, 大小, 透明度 加进 list 里 
+        之后用 animate() 一次过渲染出来
+    */
+    function handleMouseMove(e) {
+        trail.push({ x: e.clientX, y: e.clientY, size: 6, opacity: 1 });
+    }
+
+
+
+
+
+    /* 渲染动态变化的背景颜色 与 鼠标特效 */
+    function animate() {
+
+        /* 动态极光背景：画一个巨大的, 移动的渐变背景*/
+        const gradient = context.createLinearGradient(0, 0, canvas.width, canvas.height);
+
+        /* 用时间来控制颜色和位置的变化 */
+        const time = Date.now() / 15000; 
+        
+        const color1 = '#020418';
+        const color2 = '#04221c';
+        const color3 = '#0b3d2c';
+        const color4 = '#275848';
+
+        gradient.addColorStop(0, color1);
+        gradient.addColorStop(Math.abs(Math.sin(time * 0.5)), color2);
+        gradient.addColorStop(Math.abs(Math.sin(time * 0.3)), color3);
+        gradient.addColorStop(1, color4);
+        
+        context.fillStyle = gradient;
+        context.fillRect(0, 0, canvas.width, canvas.height);
+
+        /* 绘制鼠标拖尾 */
+        for (let i = 0; i < trail.length; i++) {
+            const p = trail[i];
+            context.beginPath();
+            context.arc(p.x, p.y, p.size, 0, Math.PI * 2, false);
+            context.fillStyle = `rgba(46, 204, 113, ${p.opacity})`;
+            context.fill();
+
+            /* 让特效渐渐变小 */
+            p.size *= 0.96;
+
+            /* 让特效渐渐变透明 */
+            p.opacity *= 0.95;
+        }
+
+        /* 移除变透明了的特效 */
+        trail = trail
+            .filter(function(p) {
+                return p.opacity > 0.01;
+            });
+        
+        animationFrameId = requestAnimationFrame(animate);
+    }
+
+</script>
